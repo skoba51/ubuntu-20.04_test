@@ -1,6 +1,6 @@
 apt-get update
 echo "Download windows files"
-wget -O w10x64.img https://bit.ly/akuhnetW10x64
+#wget -O w10x64.img https://bit.ly/akuhnetW10x64
 echo Downloading File From akuh.net
 apt-get install qemu-system-x86 -y
 echo "Wait"
@@ -8,7 +8,7 @@ wget -O RTL8139F.iso 'https://drive.google.com/uc?export=download&id=1wDL8vo9mmY
 echo "Starting Windows"
 qemu-system-x86_64 \
   -m 8G \
-  -cpu EPYC \
+  -cpu EPYC,hypervisor \
   -machine pc,type=q35 \
   -object iothread,id=iothread1 \
   -drive file=w10x64.img,format=raw \
@@ -19,7 +19,8 @@ qemu-system-x86_64 \
   -cpu max \
   -smp 8,sockets=4,cores=2,threads=1 \
   -device rtl8139,netdev=n0 -netdev user,id=n0 \
-  -accel tcg,threads=multi \ -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng
+  -accel tcg,thread=multi \ 
+  -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng
 clear
 echo RDP Address:
 curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
