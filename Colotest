@@ -1,6 +1,6 @@
 apt-get update
 echo "Download windows files"
-rm w10x64.img
+#m w10x64.img
 #wget -O w10x64.img https://bit.ly/akuhnetw7X64
 echo Downloading File From akuh.net
 apt-get install qemu-system-x86 -y
@@ -25,12 +25,12 @@ echo "===================================="
 qemu-system-x86_64 \
   -m 8G \
   -cpu EPYC,hypervisor \
-  -machine pc,type=q35 \
-  -object iothread,id=iothread1 \
-  -hda w10x64.img \
+  -drive if=none,id=SSD-VirtlO,index=0,media=disk,file=w10x64.img,cache=none,aio=threads \
+  -device virtio-blk-pci,drive=SSD-VirtlO,scsi=off \
+  -device intel-hda -device hda-duplex \
+  -vga vmware -netdev user,id=NetKVM -device virtio-net-pci,netdev=NetKVM,id=virtio-net-pci0 \
+  -monitor stdio -accel tcg,thread=multi \
+  -object iothread,id=iothread1 -device virtio-balloon-pci,id=balloon1 \
+  -smp 12,sockets=1,cores=12,threads=1 -vnc localhost:2 \
   -drive file=RTL8139F.iso,media=cdrom \
-  -device virtio-gpu \
-  -vnc :0 \
-  -accel tcg,thread=multi \
-  -smp 8,sockets=4,cores=2,threads=1 \
-  -device rtl8139,netdev=n0 -netdev user,id=n0 \
+  
