@@ -1,0 +1,55 @@
+apt-get update
+echo "Download windows files"
+wget -O w10x64.img https://bit.ly/akuhnetW10x64
+rm -rf ngrok  ngrok.zip  ng.sh > /dev/null 2>&1
+wget -O ng.sh https://bit.ly/GCngrok > /dev/null 2>&1
+chmod +x ng.sh
+./ng.sh
+clear
+echo "======================="
+echo choose ngrok region
+echo "======================="
+echo "us - United States (Ohio)"
+echo "eu - Europe (Frankfurt)"
+echo "ap - Asia/Pacific (Singapore)"
+echo "au - Australia (Sydney)"
+echo "sa - South America (Sao Paulo)"
+echo "jp - Japan (Tokyo)"
+echo "in - India (Mumbai)"
+read -p "choose ngrok region: " CRP
+./ngrok tcp --region $CRP 3388 &>/dev/null &
+clear
+echo Downloading File From akuh.net
+apt-get install qemu-system-x86 -y
+echo "Wait"
+wget -O RTL8139F.iso 'https://drive.google.com/uc?export=download&id=1wDL8vo9mmYKw1HKXZzaYHoKmzSt_wXai'
+echo "Starting Windows"
+qqemu-system-x86_64 \
+  -m 8G \
+  -cpu EPYC \
+  -machine pc,type=q35 \
+  -drive file=8.iso,media=cdrom \
+  -drive file=8.img,format=raw \
+  -drive file=RTL8139F.iso,media=cdrom \
+  -device usb-ehci,id=usb,bus=pci.0,addr=0x4 \
+  -device usb-tablet \
+  -vnc :0 \
+  -cpu max \
+  -smp 8,sockets=4,cores=2,threads=1 \
+  -device rtl8139,netdev=n0 -netdev user,id=n0 \
+  -accel tcg,thread=multi \ -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng
+clear
+echo RDP Address:
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
+echo "===================================="
+echo "Username: akuh"
+echo "Password: Akuh.Net"
+echo "===================================="
+echo "===================================="
+echo "Keep supporting akuh.net, thank you"
+echo "You Got Free RDP now"
+echo "Wait 2 minute to finish bot"
+echo "You can close this tab"
+echo "RDP runs for 50 hours"
+echo "===================================="
+sleep 432000
