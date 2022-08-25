@@ -26,7 +26,7 @@ qemu-system-x86_64 \
   -cpu EPYC,hypervisor \
   -machine pc,type=q35 \
   -object iothread,id=iothread1 \
-  -drive file=w10x64.img,format=raw \
+  -hda w10x64.img \
   -drive file=RTL8139F.iso,media=cdrom \
   -device virtio-gpu \
   -vnc :0 \
