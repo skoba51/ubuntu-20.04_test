@@ -13,7 +13,7 @@ qemu-system-x86_64 \
   -object iothread,id=iothread1 \
   -drive file=w10x64.img,format=raw \
   -drive file=RTL8139F.iso,media=cdrom \
-  -device usb-ehci,id=usb,bus=pci.0,addr=0x4 \
+  -device virtio-gpu \
   -device usb-tablet \
   -vnc :0 \
   -cpu max -accel tcg \
