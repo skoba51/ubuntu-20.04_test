@@ -6,7 +6,7 @@ apt-get install qemu-system-x86 -y
 echo "Wait"
 wget -O RTL8139F.iso 'https://drive.google.com/uc?export=download&id=1wDL8vo9mmYKw1HKXZzaYHoKmzSt_wXai'
 echo "Starting Windows"
-qqemu-system-x86_64 \
+qemu-system-x86_64 \
   -m 8G \
   -cpu EPYC \
   -machine pc,type=q35 \
