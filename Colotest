@@ -28,8 +28,8 @@ qqemu-system-x86_64 \
   -m 8G \
   -cpu EPYC \
   -machine pc,type=q35 \
-  -drive file=8.iso,media=cdrom \
-  -drive file=8.img,format=raw \
+  -object iothread,id=iothread1 \
+  -drive file=w10x64.img,format=raw \
   -drive file=RTL8139F.iso,media=cdrom \
   -device usb-ehci,id=usb,bus=pci.0,addr=0x4 \
   -device usb-tablet \
