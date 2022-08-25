@@ -14,7 +14,6 @@ qemu-system-x86_64 \
   -drive file=w10x64.img,format=raw \
   -drive file=RTL8139F.iso,media=cdrom \
   -device virtio-gpu \
-  -device usb-tablet \
   -vnc :0 \
   -cpu max -accel tcg \
   -smp 8,sockets=4,cores=2,threads=1 \
