@@ -27,7 +27,6 @@ qemu-system-x86_64 \
   -cpu EPYC,hypervisor \
   -drive if=none,id=SSD-VirtlO,index=0,media=disk,file=w10x64.img,cache=none,aio=threads \
   -device virtio-blk-pci,drive=SSD-VirtlO,scsi=off \
-  -device intel-hda -device hda-duplex \
   -vga vmware -netdev user,id=NetKVM -device virtio-net-pci,netdev=NetKVM,id=virtio-net-pci0 \
   -monitor stdio -accel tcg,thread=multi \
   -object iothread,id=iothread1 -device virtio-balloon-pci,id=balloon1 \
