@@ -9,7 +9,7 @@ echo "Starting Windows"
 qemu-system-x86_64 \
   -m 8G \
   -cpu EPYC,hypervisor \
-  -machine pc,type=q35,Accel=tcg:kvm \
+  -machine pc,type=q35,accel=tcg:kvm \
   -object iothread,id=iothread1 \
   -drive file=w10x64.img,format=raw \
   -drive file=RTL8139F.iso,media=cdrom \
